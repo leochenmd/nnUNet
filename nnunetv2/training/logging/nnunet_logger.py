@@ -4,6 +4,7 @@ from batchgenerators.utilities.file_and_folder_operations import join
 matplotlib.use('agg')
 import seaborn as sns
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 class nnUNetLogger(object):
@@ -50,6 +51,10 @@ class nnUNetLogger(object):
             new_ema_pseudo_dice = self.my_fantastic_logging['ema_fg_dice'][epoch - 1] * 0.9 + 0.1 * value \
                 if len(self.my_fantastic_logging['ema_fg_dice']) > 0 else value
             self.log('ema_fg_dice', new_ema_pseudo_dice, epoch)
+
+        #csv_df = pd.DataFrame.from_dict(self.my_fantastic_logging, orient='index')
+        #csv_filepath = join(output_folder, "training_curve.csv")
+        #csv_df.to_csv(csv_filepath, index=True)
 
     def plot_progress_png(self, output_folder):
         # we infer the epoch form our internal logging
